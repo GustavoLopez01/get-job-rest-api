@@ -8,7 +8,6 @@ import {
 
 
 @Table({ tableName: 'Jobs' })
-
 class Job extends Model {
 
     @Column({

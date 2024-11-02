@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript'
 const dbConnection = new Sequelize({
     dialect: 'mysql',
     host: 'localhost',
-    database: 'getJob',
+    database: 'getjob',
     username: 'root',
     password: 'root',
     port: 3306,

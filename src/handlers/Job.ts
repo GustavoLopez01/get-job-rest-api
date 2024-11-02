@@ -9,7 +9,7 @@ export const getAllJobs = async (req: Request, res: Response) => {
             return 
         }
 
-        res.status(404).json([])
+        res.status(200).json([])
     } catch (error) {
         console.log(error);
     }

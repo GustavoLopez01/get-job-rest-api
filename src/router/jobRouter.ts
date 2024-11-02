@@ -17,16 +17,16 @@ router.get('/:id',
 )
 
 router.post('/',
-    body('name').notEmpty(),
-    body('description').notEmpty(),
+    body('name').notEmpty().withMessage('name field is required'),
+    body('description').notEmpty().withMessage('description field is required'),
     validateFields,
     saveJob
 )
 
 router.put('/',
-    body('name').notEmpty(),
-    body('description').notEmpty(),
-    body('active').notEmpty(),
+    body('name').notEmpty().withMessage('name field is required'),
+    body('description').notEmpty().withMessage('description field is required'),
+    body('active').notEmpty().withMessage('active field is required'),
     validateFields,
     updateJob
 )
