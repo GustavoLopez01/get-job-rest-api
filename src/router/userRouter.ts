@@ -22,7 +22,6 @@ router.get('/:id',
 )
 
 router.post('/', 
-    body('id').notEmpty().withMessage('id field is required'),
     body('username').notEmpty().withMessage('username field is required'),
     body('email').notEmpty().withMessage('email field is required'),
     body('password').notEmpty().withMessage('password field is required'),
