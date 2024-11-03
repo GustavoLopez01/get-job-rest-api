@@ -3,8 +3,10 @@ import {
     Column,
     Default,
     Model,
-    DataType
+    DataType,
+    HasMany
 } from 'sequelize-typescript'
+import JobRequest from './JobRequest.model'
 
 
 @Table({ tableName: 'Jobs' })
@@ -25,6 +27,9 @@ class Job extends Model {
         type: DataType.BOOLEAN
     })
     declare active: boolean
+
+    @HasMany(() => JobRequest)
+    declare jobRequests: JobRequest[]
 
 }
 

@@ -9,9 +9,7 @@ const router = Router()
 router.get('/', getAllJobs)
 
 router.get('/:id',
-    param('id')
-        .isNumeric()
-        .withMessage('Id should be a number'),
+    param('id').isNumeric().withMessage('id should be a number'),
     validateFields,
     getJobById
 )
