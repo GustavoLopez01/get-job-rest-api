@@ -6,14 +6,19 @@ import {
     saveJobRequest 
 } from '../handlers/JobRequest'
 import { validateFields } from '../middlewares/validateFields'
+import { verifyJwt } from '../helpers/Jwt'
 
 const router = Router()
 
-router.get('/', getAllJobRequests)
+router.get('/', 
+    verifyJwt,
+    getAllJobRequests
+)
 
 router.get('/:id',
     param('id').isNumeric().withMessage('id should be a number'),
     param('id').notEmpty().withMessage('id is required'),
+    verifyJwt,
     validateFields,
     getJobRequestById
 )
@@ -22,6 +27,7 @@ router.post('/',
     body('userId').notEmpty().withMessage('userId field is required'),
     body('userAccountId').notEmpty().withMessage('userAccountId field is required'),
     body('jobId').notEmpty().withMessage('jobId field is required'),
+    verifyJwt,
     validateFields,
     saveJobRequest
 )
@@ -31,6 +37,7 @@ router.put('/',
     body('userId').notEmpty().withMessage('userId field is required'),
     body('userAccountId').notEmpty().withMessage('userAccountId field is required'),
     body('jobId').notEmpty().withMessage('jobId field is required'),
+    verifyJwt,
     validateFields,
     saveJobRequest
 )

@@ -5,7 +5,7 @@ import User from '../models/User.model'
 import UserAccount from '../models/UserAccount.model'
 
 export const getAllJobRequests =  async (req: Request, res: Response) => {
-    try {
+    try {        
         const requests = await JobRequest.findAll()
         if(Array.isArray(requests)) {
             res.status(200).json(requests)
