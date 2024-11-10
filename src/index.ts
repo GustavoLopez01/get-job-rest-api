@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import jobRouter from './router/jobRouter'
 import userRouter from './router/userRouter'
 import jobRequestRouter from './router/jobRequestRouter'
+import SessionRouter from './router/SessionRouter'
 import dbConnection from './db/db'
 dotenv.config()
 
@@ -24,6 +25,7 @@ const PORT = process.env.PORT || 4000
 
 server.use(express.json())
 
+server.use('/api/session', SessionRouter)
 server.use('/api/jobs', jobRouter)
 server.use('/api/users', userRouter)
 server.use('/api/jobRequests', jobRequestRouter)
