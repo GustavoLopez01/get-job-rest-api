@@ -5,6 +5,7 @@ import {
     Model,
     HasOne,
     HasMany,
+    Unique
 } from 'sequelize-typescript'
 import UserAccount from './UserAccount.model'
 import JobRequest from './JobRequest.model'
@@ -15,8 +16,9 @@ class User extends Model {
     @Column({
         type: DataType.STRING(50)
     })
-    declare username: string
+    declare fullName: string
 
+    @Unique
     @Column({
         type: DataType.STRING(50)
     })

@@ -3,10 +3,9 @@ import {
     Column,
     DataType,
     ForeignKey,
-    Model
+    Model,
 } from 'sequelize-typescript'
 import User from './User.model'
-
 
 @Table({ tableName: 'User_Accounts' })
 class UserAccount extends Model {
@@ -20,6 +19,16 @@ class UserAccount extends Model {
         type: DataType.INTEGER
     })
     declare age: number
+    
+    @Column({
+        type: DataType.BOOLEAN
+    })
+    declare isVerified: boolean
+
+    @Column({
+        type: DataType.BOOLEAN
+    })
+    declare isLogged: boolean
 
     @ForeignKey(() => User)
     @Column({

@@ -36,7 +36,6 @@ router.post('/',
     body('password').notEmpty().withMessage('password field is required'),
     body('gender').notEmpty().withMessage('gender field is required'),
     body('age').notEmpty().withMessage('age field is required'),
-    verifyJwt,
     validateFields,
     saveUser
 )
