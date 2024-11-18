@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { login, logout } from '../handlers/Session'
+import { login, logout } from '../handlers/UserLogin'
 
 const router = Router()
 
