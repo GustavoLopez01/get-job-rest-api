@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
 import jobRouter from './router/jobRouter'
 import userRouter from './router/userRouter'
 import dbConnection from './db/db'
@@ -22,6 +23,7 @@ const server = express()
 const PORT = process.env.PORT || 4000
 
 server.use(express.json())
+server.use(cors())
 
 server.use('/api/jobs', jobRouter)
 server.use('/api/users', userRouter)

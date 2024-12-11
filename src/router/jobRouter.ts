@@ -1,12 +1,23 @@
 
 import { Router } from 'express'
 import { body, param } from 'express-validator'
-import { getAllJobs, getJobById, saveJob, updateJob } from '../handlers/Job'
+import { 
+    getAllJobs, 
+    getJobById, 
+    getJobsByUserId, 
+    saveJob, 
+    updateJob
+} from '../handlers/Job'
 import { validateFields } from '../middlewares/validateFields'
 
 const router = Router()
 
 router.get('/', getAllJobs)
+
+router.get('/get-vacancies',
+    verifyJwt,
+    getJobsByUserId
+)
 
 router.get('/:id',
     param('id')
@@ -30,5 +41,6 @@ router.put('/',
     validateFields,
     updateJob
 )
+
 
 export default router
