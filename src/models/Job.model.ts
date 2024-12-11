@@ -3,17 +3,13 @@ import {
     Column,
     Default,
     Model,
-<<<<<<< Updated upstream
-    DataType
-} from 'sequelize-typescript'
-=======
     DataType,
-    HasMany,
-    ForeignKey
+    ForeignKey,
+    HasMany
 } from 'sequelize-typescript'
+
 import JobRequest from './JobRequest.model'
 import User from './User.model'
->>>>>>> Stashed changes
 
 
 @Table({ tableName: 'Jobs' })
@@ -35,8 +31,6 @@ class Job extends Model {
     })
     declare active: boolean
 
-<<<<<<< Updated upstream
-=======
     @Column({
         type: DataType.INTEGER
     })
@@ -62,7 +56,6 @@ class Job extends Model {
     @HasMany(() => JobRequest)
     declare jobRequests: JobRequest[]
 
->>>>>>> Stashed changes
 }
 
 export default Job

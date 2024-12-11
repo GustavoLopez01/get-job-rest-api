@@ -3,6 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import jobRouter from './router/jobRouter'
 import userRouter from './router/userRouter'
+import jobRequestRouter from './router/jobRequestRouter'
+import SessionRouter from './router/SessionRouter'
 import dbConnection from './db/db'
 dotenv.config()
 
@@ -25,8 +27,10 @@ const PORT = process.env.PORT || 4000
 server.use(express.json())
 server.use(cors())
 
+server.use('/api/session', SessionRouter)
 server.use('/api/jobs', jobRouter)
 server.use('/api/users', userRouter)
+server.use('/api/jobRequests', jobRequestRouter)
 
 
 server.listen(PORT, () => console.log(`Server is running in port -> ${PORT}`))
