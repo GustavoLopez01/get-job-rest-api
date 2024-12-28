@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import User from "../models/User.model";
 import UserAccount from '../models/UserAccount.model';
 import { getUserByEmail } from '../helpers/User';
+import { decodeJwt } from '../helpers/Jwt';
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -127,6 +128,23 @@ export const updateUser = async (req: Request, res: Response) => {
             res.status(200).json(user)
             return 
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getUser = async (req: Request, res: Response) => {
+    try {
+        const { email } = decodeJwt(req.headers.authorization.trim())
+        const user: User = await getUserByEmail({ email })
+        if(user.id) {
+            res.status(200).json(user)
+            return
+        }
+        res.status(404).json({
+            error: false,
+            message: `User with email: ${email} not exists`
+        })
     } catch (error) {
         console.log(error);
     }

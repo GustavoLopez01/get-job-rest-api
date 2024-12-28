@@ -3,6 +3,7 @@ import { body, param } from 'express-validator'
 import { 
     getAllUsers,
     getAllUsersAccounts,
+    getUser,
     getUserById,
     saveUser,
     updateUser
@@ -20,6 +21,11 @@ router.get('/',
 router.get('/accounts', 
     verifyJwt, 
     getAllUsersAccounts
+)
+
+router.get('/get-user', 
+    verifyJwt,
+    getUser
 )
 
 router.get('/:id', 
