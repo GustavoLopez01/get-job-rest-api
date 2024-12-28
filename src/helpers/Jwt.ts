@@ -25,6 +25,7 @@ export const verifyJwt = (req: Request, res: Response, next: NextFunction) => {
                 res.json({ 
                     error: true,
                     message: 'Token is not valid',
+                    isInvalidToken: true
                 })
                 return
             }

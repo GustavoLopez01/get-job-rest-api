@@ -2,6 +2,7 @@ import { Request, Response} from 'express'
 import Job from '../models/Job.model';
 import User from '../models/User.model';
 import { decodeJwt } from '../helpers/Jwt';
+import { getUserByEmail } from '../helpers/User';
 
 export const getAllJobs = async (req: Request, res: Response) => {
     try {
@@ -34,7 +35,14 @@ export const getJobById = async (req: Request, res: Response) => {
 
 export const saveJob = async (req: Request, res: Response) => {
     try {
-        const job = await Job.create(req.body)
+        const { email } = decodeJwt(req.headers.authorization?.trim())
+        const user: User = await getUserByEmail({ email })
+
+        const job = await Job.create({
+            ...req.body,
+            userId: user.id
+        })
+        
         if(job) {
             res.status(200).json(job)
             return
@@ -94,6 +102,28 @@ export const getJobsByUserId = async (req: Request, res: Response) => {
         }
 
         res.status(200).json([])
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const deleteById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const job = await Job.findByPk(id)
+        if(!job) {
+            res.status(404).json({
+                error: true,
+                message: `No exists job with id ${id}`
+            })
+            return
+        }
+
+        await job.destroy()
+        res.status(200).json({
+            success: true,
+            message: `Job has been successfully deleted`
+        })
     } catch (error) {
         console.log(error);
     }

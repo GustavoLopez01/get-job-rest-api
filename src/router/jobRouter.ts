@@ -2,6 +2,7 @@
 import { Router } from 'express'
 import { body, param } from 'express-validator'
 import { 
+    deleteById,
     getAllJobs, 
     getJobById, 
     getJobsByUserId, 
@@ -45,6 +46,13 @@ router.put('/',
     verifyJwt,
     validateFields,
     updateJob
+)
+
+router.delete('/:id',
+    param('id').isNumeric().withMessage('id should be a number'),
+    verifyJwt,
+    validateFields,
+    deleteById,
 )
 
 
