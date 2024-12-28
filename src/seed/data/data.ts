@@ -68,12 +68,14 @@ export const USERS = [
     {
         fullName: "Gus Lopez",
         email: "test@gmail.com",
-        password: "123"
+        password: "123",
+        roleId: 1
     },
     {
         fullName: "Gus Lopez 2",
         email: "test2@gmail.com",
-        password: "123"
+        password: "123",
+        roleId: 2
     }
 ]
 
@@ -91,5 +93,16 @@ export const USER_ACCOUNTS = [
         isVerified: false,
         isLogged: false,
         userId: 2
+    }
+]
+
+export const ROLES = [
+    {
+        name: "RECLUTADOR",
+        description: "ingresa nuevas vacantes en la aplicación",
+    },
+    {
+        name: "EMPLEADO",
+        description: "postula para encontrar un nuevo trabajo"
     }
 ]
