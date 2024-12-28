@@ -30,7 +30,10 @@ router.get('/get-user',
 
 router.get('/:id', 
     param('id').isNumeric().withMessage('Id should be a number'),
-    param('id').custom((id) => (id <= 0)).withMessage('Id should be greather than zero'),
+    param('id').custom((id) => {
+        if(Number(id) <= 0)  return false
+        return true
+    }).withMessage('Id should be greather than zero'),
     verifyJwt,
     validateFields,
     getUserById

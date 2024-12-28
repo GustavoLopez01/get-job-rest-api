@@ -3,6 +3,7 @@ import User from "../models/User.model";
 import UserAccount from '../models/UserAccount.model';
 import { getUserByEmail } from '../helpers/User';
 import { decodeJwt } from '../helpers/Jwt';
+import Role from '../models/Role.model';
 
 export const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -36,7 +37,7 @@ export const getUserById = async (req: Request, res: Response) => {
     try {
         const id = req.params.id
         const user = await User.findByPk(id, {
-            include: [UserAccount]
+            include: [UserAccount, Role]
         })
 
         if(user) {

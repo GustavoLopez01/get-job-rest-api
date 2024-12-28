@@ -16,7 +16,11 @@ export const generateJwt = (user: UserLogin) => {
 
 export const verifyJwt = (req: Request, res: Response, next: NextFunction) => {
     try {        
-        const userToken = req.headers.authorization?.trim()
+        let userToken = req.headers.authorization?.trim() || ''
+        if(userToken.includes('Bearer')) {
+            userToken = userToken.split(" ")?.[1]
+        }
+                
         return jwt.verify(
             userToken, 
             process.env.PRIVATE_KEY_TOKEN, 
