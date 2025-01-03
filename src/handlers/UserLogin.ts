@@ -3,6 +3,7 @@ import { generateJwt } from '../helpers/Jwt'
 import { getUserByEmail } from '../helpers/User'
 import UserAccount from '../models/UserAccount.model'
 import User from '../models/User.model'
+import Role from '../models/Role.model'
 
 export const login = async (req: Request, res: Response) => {
     try {
@@ -13,9 +14,10 @@ export const login = async (req: Request, res: Response) => {
                 where: {
                     email,
                     password
-                }
+                },                
+                include: [Role],
             })
-
+            
             if (user) {
                 await UserAccount.update({
                     isLogged: true
@@ -23,7 +25,10 @@ export const login = async (req: Request, res: Response) => {
                     where: { id: user.id }
                 })
 
-                res.status(200).json({ token })
+                res.status(200).json({ 
+                    token,
+                    role: user.role
+                })
                 return
             }
         }
