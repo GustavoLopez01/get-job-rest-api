@@ -28,7 +28,7 @@ class User extends Model {
     declare email: string
 
     @Column({
-        type: DataType.STRING(50)
+        type: DataType.STRING(100)
     })
     declare password: string
 
