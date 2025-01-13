@@ -3,6 +3,7 @@ import Job from '../models/Job.model';
 import User from '../models/User.model';
 import { decodeJwt } from '../helpers/Jwt';
 import { getUserByEmail } from '../helpers/User';
+import JobRequest from '../models/JobRequest.model';
 
 export const getAllJobs = async (req: Request, res: Response) => {
     try {
@@ -78,8 +79,11 @@ export const updateJob = async (req: Request, res: Response) => {
 
 export const getJobsByUserId = async (req: Request, res: Response) => {
     try {
-        const token = req.headers.authorization?.trim()
-        const { email } = decodeJwt(token)        
+        const { includealldata, authorization } = req.headers
+        const token = authorization.trim()
+        const models = (Number(includealldata) === 1) ? [JobRequest] : []
+        const { email } = decodeJwt(token)
+
         const user = await User.findOne({
             where: { email }
         })
@@ -93,7 +97,8 @@ export const getJobsByUserId = async (req: Request, res: Response) => {
         }
         
         const jobs = await Job.findAll({
-            where: { userId: user.id }
+            where: { userId: user.id },
+            include: models
         })
 
         if(Array.isArray(jobs)) {
