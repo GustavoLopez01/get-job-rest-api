@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import User from "../models/User.model";
 import UserAccount from '../models/UserAccount.model';
-import { getUserByEmail } from '../helpers/User';
+import { encryptString, getUserByEmail } from '../helpers/User';
 import { decodeJwt } from '../helpers/Jwt';
 import Role from '../models/Role.model';
 
@@ -10,7 +10,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
         const users = await User.findAll({
             include: [UserAccount]
         })
-        if(Array.isArray(users)) {
+        if (Array.isArray(users)) {
             res.status(200).json(users)
             return
         }
@@ -23,7 +23,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const getAllUsersAccounts = async (req: Request, res: Response) => {
     try {
         const accounts = await UserAccount.findAll()
-        if(Array.isArray(accounts)) {
+        if (Array.isArray(accounts)) {
             res.status(200).json(accounts)
             return
         }
@@ -40,7 +40,7 @@ export const getUserById = async (req: Request, res: Response) => {
             include: [UserAccount, Role]
         })
 
-        if(user) {
+        if (user) {
             res.status(200).json(user)
             return
         }
@@ -60,30 +60,35 @@ export const saveUser = async (req: Request, res: Response) => {
             password,
             gender,
             age,
+            fullName,
+            roleId
         } = req.body
 
         const alreadyExistEmail = await getUserByEmail({ email })
-        if(alreadyExistEmail) {
-            res.status(200).json({ 
+        if (alreadyExistEmail) {
+            res.status(200).json({
                 success: false,
                 message: `Email ${email} already exists`
             })
             return
         }
 
+        const encriptedPassword = encryptString(password)
         const user = await User.create({
             username,
             email,
-            password
+            fullName,
+            roleId,
+            password: encriptedPassword
         })
-        if(user) {
+        if (user) {
             await UserAccount.create({
                 gender,
                 age,
                 userId: user.id
             })
             res.status(200).json(user)
-            return 
+            return
         }
     } catch (error) {
         console.log(error);
@@ -102,8 +107,8 @@ export const updateUser = async (req: Request, res: Response) => {
         } = req.body
 
         const alreadyExistEmail = await getUserByEmail({ email })
-        if(alreadyExistEmail) {
-            res.status(200).json({ 
+        if (alreadyExistEmail) {
+            res.status(200).json({
                 success: false,
                 message: `Email ${email} already exists`
             })
@@ -114,20 +119,20 @@ export const updateUser = async (req: Request, res: Response) => {
             username,
             email,
             password
-        } , {
+        }, {
             where: { id }
         })
 
-        if(user) {
+        if (user) {
             await UserAccount.update({
                 gender,
                 age,
                 userId: id
-            } , {
+            }, {
                 where: { userId: id }
             })
             res.status(200).json(user)
-            return 
+            return
         }
     } catch (error) {
         console.log(error);
@@ -138,7 +143,7 @@ export const getUser = async (req: Request, res: Response) => {
     try {
         const { email } = decodeJwt(req.headers.authorization.trim())
         const user: User = await getUserByEmail({ email })
-        if(user.id) {
+        if (user.id) {
             res.status(200).json(user)
             return
         }

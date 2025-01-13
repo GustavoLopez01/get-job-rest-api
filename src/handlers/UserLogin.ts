@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { decodeJwt, generateJwt } from '../helpers/Jwt'
-import { getUserByEmail } from '../helpers/User'
+import { getUserByEmail, validateEncryptString } from '../helpers/User'
 import UserAccount from '../models/UserAccount.model'
 import User from '../models/User.model'
 import Role from '../models/Role.model'
@@ -11,14 +11,13 @@ export const login = async (req: Request, res: Response) => {
         const { email, password } = req.body
         if (token) {
             const user = await User.findOne({
-                where: {
-                    email,
-                    password
-                },
+                where: { email },
                 include: [Role],
             })
 
-            if (user) {
+            const validatePassword = validateEncryptString(password, user.password)
+            
+            if (user && validatePassword) {
                 await UserAccount.update({
                     isLogged: true
                 }, {
