@@ -19,7 +19,12 @@ class User extends Model {
     @Column({
         type: DataType.STRING(50)
     })
-    declare fullName: string
+    declare name: string
+
+    @Column({
+        type: DataType.STRING(50)
+    })
+    declare lastName: string
 
     @Unique
     @Column({

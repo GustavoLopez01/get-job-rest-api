@@ -47,6 +47,12 @@ class Job extends Model {
     })
     declare details: string
 
+    @Default('')
+    @Column({
+        type: DataType.TEXT
+    })
+    declare address: string
+
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER

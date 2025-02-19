@@ -66,13 +66,15 @@ export const JOBS = [
 
 export const USERS = [
     {
-        fullName: "Gus Lopez",
+        name: "Gus",
+        lastName: "Lopez",
         email: "test@gmail.com",
         password: "123",
         roleId: 1
     },
     {
-        fullName: "Gus Lopez 2",
+        name: "Gus",
+        lastName: "Lopez 2",
         email: "test2@gmail.com",
         password: "123",
         roleId: 2

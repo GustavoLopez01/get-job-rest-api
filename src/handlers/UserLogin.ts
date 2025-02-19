@@ -9,12 +9,12 @@ export const login = async (req: Request, res: Response) => {
     try {
         const token = generateJwt(req.body)
         const { email, password } = req.body
-        if (token) {
-            const user = await User.findOne({
-                where: { email },
-                include: [Role],
-            })
+        const user = await User.findOne({
+            where: { email },
+            include: [Role],
+        })
 
+        if (token && user.id) {
             const validatePassword = validateEncryptString(password, user.password)
             
             if (user && validatePassword) {
@@ -37,6 +37,10 @@ export const login = async (req: Request, res: Response) => {
         })
     } catch (error) {
         console.log(error);
+        res.status(404).json({
+            error: true,
+            message: `Verify email and password`
+        })
     }
 }
 

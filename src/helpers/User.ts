@@ -34,5 +34,6 @@ export const validateEncryptString = (textPlain: string, hash: string) => {
         return bcrypt.compareSync(textPlain, hash)
     } catch (error) {
         console.log(error);
+        return false
     }
 }

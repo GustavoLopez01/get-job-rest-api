@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import jobRouter from './router/jobRouter'
 import userRouter from './router/userRouter'
+import userAccountRouter from './router/userAccountRouter'
 import jobRequestRouter from './router/jobRequestRouter'
 import SessionRouter from './router/SessionRouter'
 import rolRouter from './router/rolRouter'
@@ -31,6 +32,7 @@ server.use(cors())
 server.use('/api/session', SessionRouter)
 server.use('/api/jobs', jobRouter)
 server.use('/api/users', userRouter)
+server.use('/api/usersAccount', userAccountRouter)
 server.use('/api/jobRequests', jobRequestRouter)
 server.use('/api/roles', rolRouter)
 
