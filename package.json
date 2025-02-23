@@ -20,6 +20,7 @@
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "mysql2": "^3.11.3",
+    "resend": "^4.1.2",
     "sequelize": "^6.37.5",
     "sequelize-typescript": "^2.1.6"
   },

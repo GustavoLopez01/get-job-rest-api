@@ -1,5 +1,7 @@
-import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
+
+import express from 'express'
 import cors from 'cors'
 import jobRouter from './router/jobRouter'
 import userRouter from './router/userRouter'
@@ -8,8 +10,6 @@ import jobRequestRouter from './router/jobRequestRouter'
 import SessionRouter from './router/SessionRouter'
 import rolRouter from './router/rolRouter'
 import dbConnection from './db/db'
-dotenv.config()
-
 
 async function connectDB() {
     try {
