@@ -1,7 +1,11 @@
 
 import Router from 'express'
-import { body } from 'express-validator'
-import { getAll, updateUserAccount } from '../handlers/UserAccount'
+import { body, param } from 'express-validator'
+import {
+  getAll,
+  updateByVerifyToken,
+  updateUserAccount
+} from '../handlers/UserAccount'
 import { verifyJwt } from '../helpers/Jwt'
 import { validateFields } from '../middlewares/validateFields'
 
@@ -20,6 +24,13 @@ router.put('/',
   validateFields,
   updateUserAccount
 )
+
+router.put('/verify/:verifyToken',
+  param('verifyToken').notEmpty().withMessage('El genero es requerido'),
+  validateFields,
+  updateByVerifyToken
+)
+
 
 
 export default router
