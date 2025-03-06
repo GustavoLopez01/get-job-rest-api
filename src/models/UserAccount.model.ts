@@ -28,6 +28,12 @@ class UserAccount extends Model {
         type: DataType.STRING
     })
     declare verifyToken: string
+
+    @Default('')
+    @Column({
+        type: DataType.STRING
+    })
+    declare cv: string
     
     @Default(false)
     @Column({

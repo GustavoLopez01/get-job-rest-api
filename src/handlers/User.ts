@@ -144,7 +144,7 @@ export const updateUser = async (req: Request, res: Response) => {
       }, {
         where: { userId: id }
       })
-      
+            
       res.status(200).json({
         success: true,
         message: 'Usuario actualizado correctamente.'

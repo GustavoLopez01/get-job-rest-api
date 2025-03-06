@@ -7,11 +7,18 @@ import {
 } from '../handlers/JobRequest'
 import { validateFields } from '../middlewares/validateFields'
 import { verifyJwt } from '../helpers/Jwt'
+import { getUserByRequest } from '../middlewares/getUserByRequest'
 
 const router = Router()
 
 router.get('/', 
     verifyJwt,
+    getAllJobRequests
+)
+
+router.get('/getAllByUser',
+    verifyJwt,
+    getUserByRequest,
     getAllJobRequests
 )
 
@@ -23,12 +30,13 @@ router.get('/:id',
     getJobRequestById
 )
 
-router.post('/', 
-    body('userId').notEmpty().withMessage('userId field is required'),
-    body('userAccountId').notEmpty().withMessage('userAccountId field is required'),
-    body('jobId').notEmpty().withMessage('jobId field is required'),
+router.post('/:jobId', 
+    param('jobId').notEmpty().withMessage('El id del trabajo es requerido'),
+    // body('userId').notEmpty().withMessage('userId field is required'),
+    // body('userAccountId').notEmpty().withMessage('userAccountId field is required'),
     verifyJwt,
     validateFields,
+    getUserByRequest,
     saveJobRequest
 )
 

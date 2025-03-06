@@ -69,14 +69,14 @@ export const USERS = [
         name: "Gus",
         lastName: "Lopez",
         email: "test@gmail.com",
-        password: "123",
+        password: "$2b$10$bjiTnZGGBIOEGjNb/QkAGe5vHbg5T9uL0boBXEhjINpyBJjvXqG5m",
         roleId: 1
     },
     {
         name: "Gus",
         lastName: "Lopez 2",
         email: "test2@gmail.com",
-        password: "123",
+        password: "$2b$10$bjiTnZGGBIOEGjNb/QkAGe5vHbg5T9uL0boBXEhjINpyBJjvXqG5m",
         roleId: 2
     }
 ]
