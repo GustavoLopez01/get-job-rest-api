@@ -28,6 +28,8 @@ const PORT = process.env.PORT || 4000
 
 server.use(express.json())
 server.use(cors())
+// server.use(express.urlencoded({ extended: true }))
+server.use('/uploads', express.static('uploads'))
 
 server.use('/api/session', SessionRouter)
 server.use('/api/jobs', jobRouter)
